@@ -41,12 +41,11 @@ class AlbumRecycleViewAdapter internal constructor(private val mListener: Recycl
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem: TopAlbum = dataSet.topalbums.album[position]
+        val imgUri =
+                Uri.parse(currentItem.image[1].text)
 
         viewHolder.nameTextView.text = currentItem.name
         viewHolder.artistTextView.text = currentItem.artist.name
-//        viewHolder.imageView.setImageResource()
-        val imgUri =
-            Uri.parse(currentItem.image[1].text)
         Glide.with(viewHolder.imageView.context)
             .load(imgUri)
             .apply(
