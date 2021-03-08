@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AlbumActivity">
+    tools:context=".activitys.album.AlbumActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -47,7 +47,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recyclerView"
+                android:id="@+id/recyclerViewTracks"
                 tools:listitem="@layout/item_track_layout"
                 tools:ignore="MissingConstraints" />
         </LinearLayout>

@@ -1,4 +1,4 @@
-package com.example.musicmapp2.ui.home
+package com.example.musicmapp2.fragments.home
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -12,11 +12,6 @@ class
 HomeViewModel(
         private val apiService: ApiService
 ) : ViewModel() {
-
-//    private val _text = MutableLiveData<String>().apply {
-//        value = "This is home Fragment"
-//    }
-//    val text: LiveData<String> = _text
 
     private val _downloadedTopAlbums = MutableLiveData<TopAlbumsResponse>()
     val downloadedTopAlbums: LiveData<TopAlbumsResponse>

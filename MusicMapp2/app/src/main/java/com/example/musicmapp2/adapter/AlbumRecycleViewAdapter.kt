@@ -1,5 +1,6 @@
 package com.example.musicmapp2.adapter
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.musicmapp2.R
 import com.example.musicmapp2.data.dataclasses.TopAlbum
 import com.example.musicmapp2.data.response.TopAlbumsResponse
-import java.net.URI
+
 
 class AlbumRecycleViewAdapter internal constructor(private val mListener: RecyclerViewClickListener,
                                                    private val dataSet: TopAlbumsResponse) :
@@ -39,6 +40,7 @@ class AlbumRecycleViewAdapter internal constructor(private val mListener: Recycl
         return ViewHolder(view, mListener)
     }
 
+    @SuppressLint("RestrictedApi")
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem: TopAlbum = dataSet.topalbums.album[position]
         val imgUri =
@@ -49,11 +51,11 @@ class AlbumRecycleViewAdapter internal constructor(private val mListener: Recycl
         Glide.with(viewHolder.imageView.context)
             .load(imgUri)
             .apply(
-                RequestOptions()
-                .error(R.drawable.ic_baseline_album_24))
+                    RequestOptions()
+                            .error(R.drawable.ic_baseline_album_24))
             .into(viewHolder.imageView)
         viewHolder.itemView.setOnClickListener {
-            mListener.onClick(position)
+            mListener.onClick(position, currentItem)
         }
     }
 

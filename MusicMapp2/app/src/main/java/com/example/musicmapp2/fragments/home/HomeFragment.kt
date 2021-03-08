@@ -1,5 +1,6 @@
-package com.example.musicmapp2.ui.home
+package com.example.musicmapp2.fragments.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.musicmapp2.activitys.album.AlbumActivity
 import com.example.musicmapp2.R
 import com.example.musicmapp2.adapter.AlbumRecycleViewAdapter
 import com.example.musicmapp2.adapter.RecyclerViewClickListener
+import com.example.musicmapp2.data.dataclasses.TopAlbum
 import com.example.musicmapp2.data.network.ApiService
 import com.example.musicmapp2.data.network.ConnectivityInterceptorImpl
 import kotlinx.coroutines.Dispatchers
@@ -31,7 +34,7 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val apiService = ApiService(ConnectivityInterceptorImpl(this.requireContext()))
-        val viewModelFactory = HomeViewModelFactory(apiService)
+        viewModelFactory = HomeViewModelFactory(apiService)
         homeViewModel =
                 ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
 
@@ -42,8 +45,17 @@ class HomeFragment : Fragment() {
             recyclerView.setHasFixedSize(true)
 
         val listener = object : RecyclerViewClickListener {
-            override fun onClick(position: Int) {
-                Toast.makeText(context, "Position $position", Toast.LENGTH_SHORT).show()
+            override fun onClick(position: Int, topAlbum: TopAlbum) {
+//                Toast.makeText(context, "Position $position", Toast.LENGTH_SHORT).show()
+
+                val artist = topAlbum.artist.name
+                val albumname = topAlbum.name
+                val albumInformation = arrayListOf<String>(artist, albumname)
+
+                val intent = Intent(getActivity(), AlbumActivity::class.java).apply {
+                    putExtra("AlbumInformation", albumInformation)
+                }
+                startActivity(intent)
             }
         }
 

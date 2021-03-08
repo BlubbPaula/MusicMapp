@@ -1,4 +1,4 @@
-package com.example.musicmapp2.ui.search
+package com.example.musicmapp2.fragments.search
 
 import android.os.Bundle
 import android.view.LayoutInflater
