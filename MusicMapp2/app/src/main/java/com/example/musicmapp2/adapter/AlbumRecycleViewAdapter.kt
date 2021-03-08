@@ -52,6 +52,9 @@ class AlbumRecycleViewAdapter internal constructor(private val mListener: Recycl
                 RequestOptions()
                 .error(R.drawable.ic_baseline_album_24))
             .into(viewHolder.imageView)
+        viewHolder.itemView.setOnClickListener {
+            mListener.onClick(position)
+        }
     }
 
     override fun getItemCount() = dataSet.topalbums.album.size
