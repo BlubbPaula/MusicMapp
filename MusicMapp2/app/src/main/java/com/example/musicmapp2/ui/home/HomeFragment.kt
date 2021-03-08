@@ -1,7 +1,6 @@
 package com.example.musicmapp2.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +10,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.musicmapp2.Album
 import com.example.musicmapp2.R
 import com.example.musicmapp2.adapter.AlbumRecycleViewAdapter
 import com.example.musicmapp2.adapter.RecyclerViewClickListener
 import com.example.musicmapp2.data.network.ApiService
 import com.example.musicmapp2.data.network.ConnectivityInterceptorImpl
-import com.example.musicmapp2.data.network.TopAlbumsDataSourceImpl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,14 +23,17 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
     private lateinit var homeViewModel: HomeViewModel
+    private lateinit var viewModelFactory: HomeViewModelFactory
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
+        val apiService = ApiService(ConnectivityInterceptorImpl(this.requireContext()))
+        val viewModelFactory = HomeViewModelFactory(apiService)
         homeViewModel =
-                ViewModelProvider(this).get(HomeViewModel::class.java)
+                ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(getContext())
@@ -45,11 +45,9 @@ class HomeFragment : Fragment() {
             }
         }
 
-        val apiService = ApiService(ConnectivityInterceptorImpl(this.requireContext()))
-        val topAlbumsDataSource = TopAlbumsDataSourceImpl(apiService)
 //        val textView: TextView = root.findViewById(R.id.textView)
 
-        topAlbumsDataSource.downloadedTopAlbums.observe(this, Observer {
+        homeViewModel.downloadedTopAlbums.observe(this, Observer {
             {}
 //            textView.text = it.toString()
             recyclerView.adapter = AlbumRecycleViewAdapter(listener, it!!)
@@ -57,7 +55,7 @@ class HomeFragment : Fragment() {
         })
 
         GlobalScope.launch(Dispatchers.Main) {
-            topAlbumsDataSource.fetchTopAlbums("Queen")
+            homeViewModel.fetchTopAlbums("Queen")
         }
         return root
     }
