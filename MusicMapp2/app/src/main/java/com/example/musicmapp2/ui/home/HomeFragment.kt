@@ -34,13 +34,15 @@ class HomeFragment : Fragment() {
         val viewModelFactory = HomeViewModelFactory(apiService)
         homeViewModel =
                 ViewModelProvider(this, viewModelFactory).get(HomeViewModel::class.java)
+
         val root = inflater.inflate(R.layout.fragment_home, container, false)
+
         val recyclerView: RecyclerView = root.findViewById(R.id.recyclerView)
             recyclerView.layoutManager = LinearLayoutManager(getContext())
             recyclerView.setHasFixedSize(true)
 
         val listener = object : RecyclerViewClickListener {
-            override fun onClick(view: View?, position: Int) {
+            override fun onClick(position: Int) {
                 Toast.makeText(context, "Position $position", Toast.LENGTH_SHORT).show()
             }
         }
@@ -48,15 +50,15 @@ class HomeFragment : Fragment() {
 //        val textView: TextView = root.findViewById(R.id.textView)
 
         homeViewModel.downloadedTopAlbums.observe(this, Observer {
-            {}
-//            textView.text = it.toString()
             recyclerView.adapter = AlbumRecycleViewAdapter(listener, it!!)
-
         })
 
         GlobalScope.launch(Dispatchers.Main) {
             homeViewModel.fetchTopAlbums("Queen")
         }
+
         return root
     }
+
+
 }
