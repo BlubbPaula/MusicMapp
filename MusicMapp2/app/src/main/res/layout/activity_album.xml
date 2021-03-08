@@ -20,12 +20,12 @@
                 android:paddingTop="72dp"
                 android:paddingLeft="72dp"
                 android:paddingRight="72dp"
-                android:id="@+id/image"
+                android:id="@+id/album_det_image"
                 android:src="@drawable/ic_baseline_album_24"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/album_name"
+                android:id="@+id/album_det_name"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="20dp"
@@ -36,7 +36,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/album_artist"
+                android:id="@+id/album_det_artist"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="5dp"
