@@ -14,13 +14,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        val retrofit = Retrofit.Builder()
-//            .baseUrl("http://ws.audioscrobbler.com/2.0/?api_key=2b635ea091494f2935f401fd5fb750bf")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build()
-
-//            val api = retrofit.create(ApiService::class.java)
-
         val navView: BottomNavigationView = findViewById(R.id.nav_view)
 
         val navController = findNavController(R.id.nav_host_fragment)

@@ -11,45 +11,47 @@
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <ImageView
+                android:id="@+id/album_det_image"
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-                android:paddingTop="72dp"
                 android:paddingLeft="72dp"
+                android:paddingTop="72dp"
                 android:paddingRight="72dp"
-                android:id="@+id/album_det_image"
-                android:src="@drawable/ic_baseline_album_24"/>
+                android:src="@drawable/ic_baseline_album_24" />
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/album_det_name"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginTop="20dp"
-                android:textSize="20sp"
-                android:gravity="center"
-                android:text="Album Name"
-                />
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/album_det_artist"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="5dp"
-                android:textSize="15sp"
                 android:gravity="center"
                 android:text="Album Name"
-                />
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/album_det_artist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="30dp"
+                android:gravity="center"
+                android:text="Album Name"
+                android:textSize="15sp" />
+
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTracks"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/recyclerViewTracks"
-                tools:listitem="@layout/item_track_layout"
-                tools:ignore="MissingConstraints" />
+                tools:ignore="MissingConstraints"
+                tools:listitem="@layout/item_track_layout" />
         </LinearLayout>
     </ScrollView>
 

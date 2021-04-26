@@ -39,10 +39,9 @@ interface ApiService {
         @Query("artist") artist: String,
     ): Deferred<TopAlbumsResponse>
 
-
     companion object {
         operator fun invoke(
-            connectivityInterceptor: ConnectivityInterceptor
+//            connectivityInterceptor: ConnectivityInterceptor
         ): ApiService{
             val requestInterceptor = Interceptor{ chain ->
 
@@ -64,7 +63,7 @@ interface ApiService {
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(requestInterceptor)
-                .addInterceptor(connectivityInterceptor)
+//                .addInterceptor(connectivityInterceptor)
                 .build()
 
             return Retrofit.Builder()
@@ -78,4 +77,8 @@ interface ApiService {
     }
 
 
+}
+
+object MusicMappApi {
+    val retrofitService: ApiService by lazy { ApiService() }
 }
