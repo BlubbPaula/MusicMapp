@@ -10,14 +10,15 @@ import com.example.musicmapp2.data.dataclasses.TopAlbum
 import com.example.musicmapp2.databinding.ItemAlbumLayoutBinding
 
 
-class AlbumRecycleViewAdapter :
+class AlbumRecycleViewAdapter(private val clickListener: AlbumListener) :
     ListAdapter<TopAlbum, AlbumRecycleViewAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder(
         private var binding: ItemAlbumLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(topAlbum: TopAlbum) {
+        fun bind(topAlbum: TopAlbum, clickListener: AlbumListener) {
             binding.album = topAlbum
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
     }
@@ -44,6 +45,10 @@ class AlbumRecycleViewAdapter :
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
         val currentItem = getItem(position)
-        viewHolder.bind(currentItem)
+        viewHolder.bind(currentItem, clickListener)
     }
+}
+
+class AlbumListener(val clickListener: (album: TopAlbum) -> Unit) {
+    fun onClick(album: TopAlbum) = clickListener(album)
 }

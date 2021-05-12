@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.musicmapp2.adapter.AlbumRecycleViewAdapter
+import com.example.musicmapp2.adapter.TrackListRecyclerViewAdapter
 import com.example.musicmapp2.data.dataclasses.TopAlbum
+import com.example.musicmapp2.data.dataclasses.Track
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
@@ -23,8 +25,14 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<TopAlbum>?){
+@BindingAdapter("albumListData")
+fun bindAlbumRecyclerView(recyclerView: RecyclerView, data: List<TopAlbum>?) {
     val adapter = recyclerView.adapter as AlbumRecycleViewAdapter
+    adapter.submitList(data)
+}
+
+@BindingAdapter("trackListData")
+fun bindTrackListRecyclerView(recyclerView: RecyclerView, data: List<Track>?) {
+    val adapter = recyclerView.adapter as TrackListRecyclerViewAdapter
     adapter.submitList(data)
 }

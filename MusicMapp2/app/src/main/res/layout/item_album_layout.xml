@@ -9,11 +9,16 @@
         <variable
             name="album"
             type="com.example.musicmapp2.data.dataclasses.TopAlbum" />
+
+        <variable
+            name="clickListener"
+            type="com.example.musicmapp2.adapter.AlbumListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> clickListener.onClick(album)}">
 
         <ImageView
             android:id="@+id/album_image"
@@ -28,7 +33,7 @@
 
         <TextView
             android:id="@+id/album_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
@@ -42,7 +47,7 @@
 
         <TextView
             android:id="@+id/artist_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{album.artist.name}"
             android:textSize="12sp"

@@ -9,12 +9,27 @@
         android:id="@+id/navigation_home"
         android:name="com.example.musicmapp2.fragments.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_navigation_home_to_albumFragment"
+            app:destination="@id/albumFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/navigation_search"
         android:name="com.example.musicmapp2.fragments.search.SearchFragment"
         android:label="@string/title_search"
         tools:layout="@layout/fragment_search" />
+    <fragment
+        android:id="@+id/albumFragment"
+        android:name="com.example.musicmapp2.fragments.album.AlbumFragment"
+        android:label="@string/titel_album">
+        <argument
+            android:name="albumName"
+            app:argType="string" />
+        <argument
+            android:name="albumArtist"
+            app:argType="string" />
+    </fragment>
 
 </navigation>

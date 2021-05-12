@@ -1,38 +1,47 @@
 package com.example.musicmapp2.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.musicmapp2.R
-import com.example.musicmapp2.data.response.AlbumResponse
+import com.example.musicmapp2.data.dataclasses.Track
+import com.example.musicmapp2.databinding.ItemTrackLayoutBinding
 
-class TrackListRecyclerViewAdapter(
-        private val dataSet: AlbumResponse
-) : RecyclerView.Adapter<TrackListRecyclerViewAdapter.ViewHolder>() {
+class TrackListRecyclerViewAdapter :
+    ListAdapter<Track, TrackListRecyclerViewAdapter.ViewHolder>(DiffCallback) {
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tracknameTextView: TextView
+    class ViewHolder(
+        private var binding: ItemTrackLayoutBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(track: Track) {
+            binding.track = track
+            binding.executePendingBindings()
+        }
+    }
 
-        init {
-            tracknameTextView = view.findViewById(R.id.track_name)
+    companion object DiffCallback : DiffUtil.ItemCallback<Track>() {
+        override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
+            return oldItem.name == newItem.name
+        }
+
+        override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
+            return oldItem == newItem
         }
 
     }
 
-    override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-                .inflate(R.layout.item_track_layout, viewGroup, false)
-        return TrackListRecyclerViewAdapter.ViewHolder(view)
+    override fun onCreateViewHolder(
+        viewGroup: ViewGroup,
+        viewType: Int
+    ): ViewHolder {
+        return ViewHolder(
+            ItemTrackLayoutBinding.inflate(LayoutInflater.from(viewGroup.context))
+        )
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        val currentItem = dataSet.album.tracks.track[position]
-
-        viewHolder.tracknameTextView.text = currentItem.name
+        val currentItem = getItem(position)
+        viewHolder.bind(currentItem)
     }
-
-    override fun getItemCount() = dataSet.album.tracks.track.size
 }
