@@ -1,12 +1,12 @@
 package com.example.musicmapp2.data.dataclasses
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class OpensearchQuery(
     val role: String,
     val searchTerms: String,
     val startPage: String,
-    @SerializedName("#text")
+    @Json(name = "#text")
     val text: String
 )

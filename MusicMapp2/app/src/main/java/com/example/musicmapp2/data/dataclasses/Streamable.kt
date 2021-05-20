@@ -1,10 +1,10 @@
 package com.example.musicmapp2.data.dataclasses
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Streamable(
     val fulltrack: String,
-    @SerializedName("#text")
+    @Json(name = "#text")
     val text: String
 )

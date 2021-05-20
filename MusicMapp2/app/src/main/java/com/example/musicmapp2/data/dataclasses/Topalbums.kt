@@ -1,10 +1,10 @@
 package com.example.musicmapp2.data.dataclasses
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Topalbums(
         val album: List<TopAlbum>,
-        @SerializedName("@attr")
+        @Json(name = "@attr")
     val attr: AttrTopalbum
 )

@@ -2,24 +2,24 @@ package com.example.musicmapp2.data.network
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.example.musicmapp2.data.network.ConnectivityInterceptor
 import com.example.musicmapp2.data.response.AlbumResponse
 import com.example.musicmapp2.data.response.AlbumSearchResponse
 import com.example.musicmapp2.data.response.TopAlbumsResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 const val API_KEY = "2b635ea091494f2935f401fd5fb750bf"
+private const val BASE_URL = "http://ws.audioscrobbler.com/"
 
-//http://ws.audioscrobbler.com/2.0/
-///2.0/?method=album.getinfo&api_key=2b635ea091494f2935f401fd5fb750bf&artist=Cher&album=Believe&format=json
-//2.0/?method=album.search&album=believe&api_key=2b635ea091494f2935f401fd5fb750bf&format=json
+
 
 interface ApiService {
 
@@ -66,11 +66,15 @@ interface ApiService {
 //                .addInterceptor(connectivityInterceptor)
                 .build()
 
+            val moshi = Moshi.Builder()
+                .add(KotlinJsonAdapterFactory())
+                .build()
+
             return Retrofit.Builder()
                 .client(okHttpClient)
                 .baseUrl("http://ws.audioscrobbler.com/")
                 .addCallAdapterFactory(CoroutineCallAdapterFactory())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(MoshiConverterFactory.create(moshi))
                 .build()
                 .create(ApiService::class.java)
         }
@@ -81,4 +85,6 @@ interface ApiService {
 
 object MusicMappApi {
     val retrofitService: ApiService by lazy { ApiService() }
+    //     val retrofitService : MarsApiService by lazy {
+    //       retrofit.create(MarsApiService::class.java) }
 }

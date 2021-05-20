@@ -1,18 +1,18 @@
 package com.example.musicmapp2.data.dataclasses
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Results(
     val albummatches: Albummatches,
-    @SerializedName("@attr")
+    @Json(name = "@attr")
     val attr: AttrResults,
-    @SerializedName("opensearch:itemsPerPage")
+    @Json(name = "opensearch:itemsPerPage")
     val opensearchItemsPerPage: String,
-    @SerializedName("opensearch:Query")
+    @Json(name = "opensearch:Query")
     val opensearchQuery: OpensearchQuery,
-    @SerializedName("opensearch:startIndex")
+    @Json(name = "opensearch:startIndex")
     val opensearchStartIndex: String,
-    @SerializedName("opensearch:totalResults")
+    @Json(name = "opensearch:totalResults")
     val opensearchTotalResults: String
 )

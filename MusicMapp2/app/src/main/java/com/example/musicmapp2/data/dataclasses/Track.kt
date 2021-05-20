@@ -1,11 +1,11 @@
 package com.example.musicmapp2.data.dataclasses
 
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class Track(
     val artist: Artist,
-    @SerializedName("@attr")
+    @Json(name = "@attr")
     val attr: Attr,
     val duration: String,
     val name: String,
