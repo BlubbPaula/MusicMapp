@@ -2,9 +2,6 @@ package com.example.musicmapp2.data.network
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.example.musicmapp2.data.response.AlbumResponse
-import com.example.musicmapp2.data.response.AlbumSearchResponse
-import com.example.musicmapp2.data.response.TopAlbumsResponse
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

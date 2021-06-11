@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.musicmapp2.data.network.MusicMappApi
-import com.example.musicmapp2.data.response.AlbumResponse
+import com.example.musicmapp2.data.network.AlbumResponse
 import com.example.musicmapp2.internal.NoConnectivityException
 import kotlinx.coroutines.launch
 

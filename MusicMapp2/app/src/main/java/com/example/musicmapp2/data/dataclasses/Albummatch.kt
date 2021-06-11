@@ -1,12 +1,10 @@
 package com.example.musicmapp2.data.dataclasses
 
-data class Album(
+data class Albummatch(
     val artist: String,
     val image: List<Image>,
+    val mbid: String,
     val name: String,
-    val tags: Tags,
-    val tracks: Tracks,
-    val url: String,
-//    val wiki: Wiki
+    val streamable: String,
+    val url: String
 )
-

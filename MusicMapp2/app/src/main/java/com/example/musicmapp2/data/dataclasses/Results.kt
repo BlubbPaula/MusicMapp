@@ -17,28 +17,3 @@ data class Results(
     val opensearchTotalResults: String
 )
 
-data class AttrResults(
-    @Json(name = "for")
-    val forX: String
-)
-
-data class OpensearchQuery(
-    val role: String,
-    val searchTerms: String,
-    val startPage: String,
-    @Json(name = "#text")
-    val text: String
-)
-
-data class Albummatches(
-    val album: List<Albummatch>
-)
-
-data class Albummatch(
-    val artist: String,
-    val image: List<Image>,
-    val mbid: String,
-    val name: String,
-    val streamable: String,
-    val url: String
-)
