@@ -1,5 +1,6 @@
 package com.example.musicmapp2.data.network
 
+import com.example.musicmapp2.data.database.entitys.*
 import com.example.musicmapp2.data.dataclasses.Album
 import com.example.musicmapp2.data.dataclasses.Results
 import com.example.musicmapp2.data.dataclasses.Topalbums
@@ -20,3 +21,4 @@ data class AlbumResponse(
 data class AlbumSearchResponse(
     val results: Results
 )
+

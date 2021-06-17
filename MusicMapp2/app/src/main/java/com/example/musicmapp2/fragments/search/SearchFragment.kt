@@ -4,30 +4,71 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.musicmapp2.R
+import com.example.musicmapp2.adapter.TopalbumRecycleViewAdapter
+import com.example.musicmapp2.adapter.TopalbumListener
+import com.example.musicmapp2.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
 
-    private lateinit var searchViewModel: SearchViewModel
+    private val searchViewModel: SearchViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
+        val viewModelFactory = SearchViewModelFactory(activity.application)
+        ViewModelProvider(this, viewModelFactory)
+            .get(SearchViewModel::class.java)
+    }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        searchViewModel =
-                ViewModelProvider(this).get(SearchViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_search, container, false)
-
-        val textView: TextView = root.findViewById(R.id.text_search)
-        searchViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
+        val binding = FragmentSearchBinding.inflate(inflater)
+        val adapter = TopalbumRecycleViewAdapter(TopalbumListener { album, view ->
+            when (view.id) {
+                R.id.download_album -> {
+                    searchViewModel.onDownloadAlbumClicked(album)
+                }
+                else -> {
+                    searchViewModel.onAlbumClicked(album)
+                }
+            }
         })
-        return root
+        binding.lifecycleOwner = this
+        binding.viewModel = searchViewModel
+        binding.recyclerview.adapter = adapter
+
+        searchViewModel.navigateToAlbumDetail.observe(viewLifecycleOwner, Observer { album ->
+            album?.let {
+                this.findNavController().navigate(
+                    SearchFragmentDirections.actionNavigationSearchToAlbumFragment(
+                        album.name,
+                        album.artist.name
+                    )
+                )
+                searchViewModel.onAlbumDetailNavigated()
+            }
+        })
+
+        searchViewModel.eventNetworkError.observe(this, Observer<Boolean> { isNetworkError ->
+            if (isNetworkError) onNetworkError()
+        })
+
+        return binding.root
+    }
+
+    private fun onNetworkError() {
+        if (!searchViewModel.isNetworkErrorShown.value!!) {
+            Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
+            searchViewModel.onNetworkErrorShown()
+        }
     }
 
 

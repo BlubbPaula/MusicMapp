@@ -19,6 +19,7 @@ data class DatabaseTrack (
     @PrimaryKey
     @ColumnInfo(name = "track_url")
     val trackUrl: String,
+    @ColumnInfo(name = "track_order")
     val trackOrder: String,
     @Embedded
     val trackArtist: DatabaseArtist,

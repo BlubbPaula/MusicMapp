@@ -4,7 +4,6 @@ data class Album(
     val artist: String,
     val image: List<Image>,
     val name: String,
-    val tags: Tags,
     val tracks: Tracks,
     val url: String,
 //    val wiki: Wiki

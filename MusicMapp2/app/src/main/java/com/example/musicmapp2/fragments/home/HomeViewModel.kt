@@ -1,44 +1,34 @@
 package com.example.musicmapp2.fragments.home
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.musicmapp2.data.dataclasses.TopAlbum
+import androidx.lifecycle.*
+import android.view.View
+import com.example.musicmapp2.R
+import com.example.musicmapp2.data.database.getDatabase
+import com.example.musicmapp2.data.dataclasses.Album
 import com.example.musicmapp2.data.network.MusicMappApi
 import com.example.musicmapp2.internal.NoConnectivityException
 import kotlinx.coroutines.launch
+import com.example.musicmapp2.repository.AlbumsRepository
 
 class
-HomeViewModel : ViewModel() {
+HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _topAlbums = MutableLiveData<List<TopAlbum>>()
-    val topAlbums: LiveData<List<TopAlbum>> = _topAlbums
+    private val albumsRepository = AlbumsRepository(getDatabase(application))
 
-    private val _navigateToAlbumDetail = MutableLiveData<TopAlbum?>()
+    val localAlbums = albumsRepository.localAlbums
+
+    private val _navigateToAlbumDetail = MutableLiveData<Album?>()
     val navigateToAlbumDetail get() = _navigateToAlbumDetail
 
-    init {
-        fetchTopAlbums("Queen")
-    }
-
-    private fun fetchTopAlbums(artist: String) {
-
+    fun onDownloadAlbumClicked(album: Album) {
         viewModelScope.launch {
-            try {
-
-                val fetchTopAlbums = MusicMappApi.retrofitService
-                    .getTopAlbums(artist)
-                    .await()
-                _topAlbums.value = fetchTopAlbums.topalbums.album
-            } catch (e: NoConnectivityException) {
-                Log.e("Connectivity", "No internet connection.")
-            }
+            albumsRepository.saveAlbum(album)
         }
     }
 
-    fun onAlbumClicked(album: TopAlbum) {
+    fun onAlbumClicked(album: Album) {
         _navigateToAlbumDetail.value = album
     }
 

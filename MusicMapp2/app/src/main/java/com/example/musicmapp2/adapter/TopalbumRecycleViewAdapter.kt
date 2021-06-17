@@ -2,21 +2,22 @@ package com.example.musicmapp2.adapter
 
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.musicmapp2.data.dataclasses.TopAlbum
-import com.example.musicmapp2.databinding.ItemAlbumLayoutBinding
+import com.example.musicmapp2.databinding.ItemTopalbumLayoutBinding
 
 
-class AlbumRecycleViewAdapter(private val clickListener: AlbumListener) :
-    ListAdapter<TopAlbum, AlbumRecycleViewAdapter.ViewHolder>(DiffCallback) {
+class TopalbumRecycleViewAdapter(private val clickListener: TopalbumListener) :
+    ListAdapter<TopAlbum, TopalbumRecycleViewAdapter.ViewHolder>(DiffCallback) {
 
     class ViewHolder(
-        private var binding: ItemAlbumLayoutBinding
+        private var binding: ItemTopalbumLayoutBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(topAlbum: TopAlbum, clickListener: AlbumListener) {
+        fun bind(topAlbum: TopAlbum, clickListener: TopalbumListener) {
             binding.album = topAlbum
             binding.clickListener = clickListener
             binding.executePendingBindings()
@@ -39,7 +40,7 @@ class AlbumRecycleViewAdapter(private val clickListener: AlbumListener) :
         viewType: Int
     ): ViewHolder {
         return ViewHolder(
-            ItemAlbumLayoutBinding.inflate(LayoutInflater.from(viewGroup.context))
+            ItemTopalbumLayoutBinding.inflate(LayoutInflater.from(viewGroup.context))
         )
     }
 
@@ -49,6 +50,6 @@ class AlbumRecycleViewAdapter(private val clickListener: AlbumListener) :
     }
 }
 
-class AlbumListener(val clickListener: (album: TopAlbum) -> Unit) {
-    fun onClick(album: TopAlbum) = clickListener(album)
+class TopalbumListener(val clickListener: (album: TopAlbum, view: View) -> Unit) {
+    fun onClick(album: TopAlbum, view: View) = clickListener(album, view)
 }
