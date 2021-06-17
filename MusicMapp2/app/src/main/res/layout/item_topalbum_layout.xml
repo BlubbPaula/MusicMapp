@@ -22,7 +22,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/album_info"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:onClick="@{(view) -> clickListener.onClick(album, view)}"
             app:layout_constraintBottom_toTopOf="@id/bottom_line"
             app:layout_constraintEnd_toStartOf="@id/download_album"

@@ -46,17 +46,21 @@ class AlbumsRepository(private val database: AlbumDatabase) {
     }
 
     suspend fun getTopAlbums(artist: String) {
-        val fetchTopAlbums = MusicMappApi.retrofitService
-            .getTopAlbums(artist)
-            .await()
-        _topAlbums.value = fetchTopAlbums.topalbums.album
+        withContext(Dispatchers.IO) {
+            val fetchTopAlbums = MusicMappApi.retrofitService
+                .getTopAlbums(artist)
+                .await()
+            _topAlbums.postValue(fetchTopAlbums.topalbums.album)
+        }
     }
 
     suspend fun getAlbum(albumArtist: String, albumName: String) {
-        val fetchAlbum = MusicMappApi.retrofitService
-            .getAlbumInformation(albumArtist, albumName)
-            .await()
-        _album.postValue(fetchAlbum.album)
+        withContext(Dispatchers.IO){
+            val fetchAlbum = MusicMappApi.retrofitService
+                .getAlbumInformation(albumArtist, albumName)
+                .await()
+            _album.postValue(fetchAlbum.album)
+        }
     }
 }
 
