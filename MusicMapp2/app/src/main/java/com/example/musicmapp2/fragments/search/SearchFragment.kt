@@ -6,12 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.musicmapp2.R
-import com.example.musicmapp2.adapter.TopalbumRecycleViewAdapter
 import com.example.musicmapp2.adapter.TopalbumListener
+import com.example.musicmapp2.adapter.TopalbumRecycleViewAdapter
 import com.example.musicmapp2.databinding.FragmentSearchBinding
 
 class SearchFragment : Fragment() {
@@ -29,7 +28,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentSearchBinding.inflate(inflater)
         val adapter = TopalbumRecycleViewAdapter(TopalbumListener { album, view ->
             when (view.id) {
@@ -45,7 +44,7 @@ class SearchFragment : Fragment() {
         binding.viewModel = searchViewModel
         binding.recyclerview.adapter = adapter
 
-        searchViewModel.navigateToAlbumDetail.observe(viewLifecycleOwner, Observer { album ->
+        searchViewModel.navigateToAlbumDetail.observe(viewLifecycleOwner, { album ->
             album?.let {
                 this.findNavController().navigate(
                     SearchFragmentDirections.actionNavigationSearchToAlbumFragment(
@@ -57,7 +56,7 @@ class SearchFragment : Fragment() {
             }
         })
 
-        searchViewModel.eventNetworkError.observe(this, Observer<Boolean> { isNetworkError ->
+        searchViewModel.eventNetworkError.observe(viewLifecycleOwner, { isNetworkError ->
             if (isNetworkError) onNetworkError()
         })
 

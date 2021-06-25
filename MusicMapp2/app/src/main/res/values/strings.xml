@@ -3,4 +3,6 @@
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="titel_album">Topalbum: {albumName}</string>
+    <string name="save_album">Save Album</string>
+    <string name="album_cover">Album Cover of %s</string>
 </resources>

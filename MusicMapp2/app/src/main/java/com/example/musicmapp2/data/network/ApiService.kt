@@ -14,25 +14,23 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 const val API_KEY = "2b635ea091494f2935f401fd5fb750bf"
-private const val BASE_URL = "http://ws.audioscrobbler.com/"
-
 
 
 interface ApiService {
 
     @GET("/2.0/?method=album.getinfo")
-    fun getAlbumInformation(
+    fun getAlbumInformationAsync(
         @Query("artist") artist: String,
         @Query("album") album: String
     ): Deferred<AlbumResponse>
 
     @GET("/2.0/?method=album.search")
-    fun getAlbumSearch(
+    fun getAlbumSearchAsync(
         @Query("album") album: String
     ): Deferred<AlbumSearchResponse>
 
     @GET("/2.0/?method=artist.gettopalbums")
-    fun getTopAlbums(
+    fun getTopAlbumsAsync(
         @Query("artist") artist: String,
     ): Deferred<TopAlbumsResponse>
 
@@ -53,7 +51,7 @@ interface ApiService {
                     .url(url)
                     .build()
 
-                Log.i(TAG, "requestInterceptor " + request.toString())
+                Log.i(TAG, "requestInterceptor $request")
 
                 return@Interceptor chain.proceed(request)
             }

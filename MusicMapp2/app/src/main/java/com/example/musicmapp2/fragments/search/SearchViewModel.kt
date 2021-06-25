@@ -1,14 +1,12 @@
 package com.example.musicmapp2.fragments.search
 
 import android.app.Application
-import android.util.Log
-import androidx.lifecycle.*
-import android.view.View
-import com.example.musicmapp2.R
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.example.musicmapp2.data.database.getDatabase
-import com.example.musicmapp2.data.dataclasses.Album
 import com.example.musicmapp2.data.dataclasses.TopAlbum
-import com.example.musicmapp2.internal.NoConnectivityException
 import com.example.musicmapp2.repository.AlbumsRepository
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -22,11 +20,11 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     private val _navigateToAlbumDetail = MutableLiveData<TopAlbum?>()
     val navigateToAlbumDetail get() = _navigateToAlbumDetail
 
-    private var _eventNetworkError = MutableLiveData<Boolean>(false)
+    private var _eventNetworkError = MutableLiveData(false)
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
-    private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
+    private var _isNetworkErrorShown = MutableLiveData(false)
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 

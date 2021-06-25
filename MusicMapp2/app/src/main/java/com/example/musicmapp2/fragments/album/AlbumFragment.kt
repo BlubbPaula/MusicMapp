@@ -1,13 +1,12 @@
 package com.example.musicmapp2.fragments.album
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import androidx.lifecycle.Observer
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.musicmapp2.adapter.TrackListRecyclerViewAdapter
 import com.example.musicmapp2.databinding.AlbumFragmentBinding
 
@@ -18,7 +17,7 @@ class AlbumFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val binding = AlbumFragmentBinding.inflate(inflater)
         val arguments = AlbumFragmentArgs.fromBundle(requireArguments())
@@ -34,7 +33,7 @@ class AlbumFragment : Fragment() {
         binding.viewModel = albumViewModel
         binding.trackList.adapter = TrackListRecyclerViewAdapter()
 
-        albumViewModel.eventNetworkError.observe(this, Observer<Boolean> { isNetworkError ->
+        albumViewModel.eventNetworkError.observe(viewLifecycleOwner, { isNetworkError ->
             if (isNetworkError) onNetworkError()
         })
 

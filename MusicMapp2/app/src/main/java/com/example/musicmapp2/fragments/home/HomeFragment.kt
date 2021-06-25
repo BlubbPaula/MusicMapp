@@ -4,17 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.example.musicmapp2.R
 import com.example.musicmapp2.adapter.AlbumListener
 import com.example.musicmapp2.adapter.AlbumRecycleViewAdapter
 import com.example.musicmapp2.databinding.FragmentHomeBinding
-import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -32,7 +28,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = FragmentHomeBinding.inflate(inflater)
         val adapter = AlbumRecycleViewAdapter(AlbumListener { album, view ->
             when (view.id) {
@@ -49,7 +45,7 @@ class HomeFragment : Fragment() {
         binding.viewModel = homeViewModel
         binding.recyclerview.adapter = adapter
 
-        homeViewModel.navigateToAlbumDetail.observe(viewLifecycleOwner, Observer { album ->
+        homeViewModel.navigateToAlbumDetail.observe(viewLifecycleOwner, { album ->
             album?.let {
                 this.findNavController().navigate(
                     HomeFragmentDirections.actionNavigationHomeToAlbumFragment(

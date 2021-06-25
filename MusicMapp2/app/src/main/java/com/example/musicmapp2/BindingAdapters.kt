@@ -12,7 +12,6 @@ import com.example.musicmapp2.adapter.TrackListRecyclerViewAdapter
 import com.example.musicmapp2.data.dataclasses.Album
 import com.example.musicmapp2.data.dataclasses.TopAlbum
 import com.example.musicmapp2.data.dataclasses.Track
-import java.util.*
 
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {

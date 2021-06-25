@@ -9,7 +9,6 @@ import com.example.musicmapp2.data.dataclasses.*
 import com.example.musicmapp2.data.network.MusicMappApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
 
 
 class AlbumsRepository(private val database: AlbumDatabase) {
@@ -48,7 +47,7 @@ class AlbumsRepository(private val database: AlbumDatabase) {
     suspend fun getTopAlbums(artist: String) {
         withContext(Dispatchers.IO) {
             val fetchTopAlbums = MusicMappApi.retrofitService
-                .getTopAlbums(artist)
+                .getTopAlbumsAsync(artist)
                 .await()
             _topAlbums.postValue(fetchTopAlbums.topalbums.album)
         }
@@ -57,7 +56,7 @@ class AlbumsRepository(private val database: AlbumDatabase) {
     suspend fun getAlbum(albumArtist: String, albumName: String) {
         withContext(Dispatchers.IO){
             val fetchAlbum = MusicMappApi.retrofitService
-                .getAlbumInformation(albumArtist, albumName)
+                .getAlbumInformationAsync(albumArtist, albumName)
                 .await()
             _album.postValue(fetchAlbum.album)
         }
